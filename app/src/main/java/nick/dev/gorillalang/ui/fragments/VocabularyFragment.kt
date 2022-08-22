@@ -47,6 +47,9 @@ class VocabularyFragment : Fragment() {
     fun setupRecyclerView(){
 
         moduleAdapter = ModuleAdapter()
+        moduleAdapter.setOnDeleteClickListener {
+            languageViewModel.deleteModule(module = it)
+        }
         binding.rvModule.apply {
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             adapter = moduleAdapter

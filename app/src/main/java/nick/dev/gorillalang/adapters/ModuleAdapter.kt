@@ -11,6 +11,7 @@ import nick.dev.gorillalang.databinding.ItemModuleHeaderBinding
 import nick.dev.gorillalang.models.Module
 
 class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
+
     inner class ModuleViewHolder(val binding: ItemModuleHeaderBinding) : RecyclerView.ViewHolder(binding.root)
     private val differCallback = object :DiffUtil.ItemCallback<Module>(){
         override fun areItemsTheSame(oldItem: Module, newItem: Module): Boolean {
@@ -32,12 +33,20 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
         val module = differ.currentList[position]
         holder.binding.apply {
             tvModule.text = module.moduleName
+            ibDelete.setOnClickListener{
+                onDeleteClickListener?.let {
+                    it(module)
+                }
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
+    private var onDeleteClickListener: ((Module)->Unit)?= null
+    fun setOnDeleteClickListener(listener :(Module)->Unit){
+        onDeleteClickListener = listener
+    }
 
 }
