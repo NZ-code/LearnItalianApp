@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_vocabulary"
-    >
+    tools:layout="@layout/fragment_vocabulary">
 
     <TextView
         android:id="@+id/textView2"
@@ -21,7 +20,6 @@
         android:id="@+id/rvModule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddModule" />
 
     <Button
@@ -30,7 +28,6 @@
         android:layout_height="wrap_content"
         android:text="Add module"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
