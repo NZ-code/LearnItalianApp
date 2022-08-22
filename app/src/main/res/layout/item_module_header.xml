@@ -22,7 +22,7 @@
         />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/ibDelete"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"

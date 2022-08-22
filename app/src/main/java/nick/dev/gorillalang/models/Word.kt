@@ -5,10 +5,12 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(
-    tableName = "modules"
+    tableName = "words"
 )
-data class Module(
-    val moduleName:String
+data class Word(
+    val moduleUserLang:String,
+    val moduleLearnLang:String,
+    val moduleId: Int
 ):Serializable{
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
