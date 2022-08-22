@@ -3,10 +3,9 @@ package nick.dev.gorillalang.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.room.migration.Migration
+import androidx.navigation.Navigation
 import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.FragmentAddModuleBinding
-import nick.dev.gorillalang.databinding.FragmentModuleBinding
 import nick.dev.gorillalang.models.Module
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
@@ -20,9 +19,8 @@ class AddModuleFragment:Fragment(R.layout.fragment_add_module) {
         binding = FragmentAddModuleBinding.bind(view)
 
         binding.btnAddModule.setOnClickListener {
-            val vocabularyFragment = VocabularyFragment()
-            (activity as (MainActivity)).setCurrentFragment(vocabularyFragment)
             languageViewModel.saveModule(Module(null,binding.etModuleName.text.toString()))
+            Navigation.findNavController(view).navigate(R.id.navigateToVocabularyFromAddModule)
         }
 
     }
