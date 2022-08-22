@@ -26,11 +26,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun setCurrentFragment(fragment: Fragment){
-        supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragment.id, fragment )
-            addToBackStack(null)
-            commit()
-        }
-    }
+
 }
