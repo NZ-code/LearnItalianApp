@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
 import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.Word
 import nick.dev.gorillalang.repository.LanguageRepository
 
 class LanguageViewModel(app:Application, private val languageRepository:
@@ -18,4 +19,12 @@ LanguageRepository):AndroidViewModel(app)
         languageRepository.deleteModule(module)
     }
     fun getUserModules() = languageRepository.getUserModules()
+
+    fun saveWord(word: Word) = viewModelScope.launch {
+        languageRepository.upsertWord(word)
+    }
+    fun getModuleWithWords(moduleId:Int) = languageRepository.getModuleWithWords(moduleId)
+    fun deleteWord(word:Word) = viewModelScope.launch {
+        languageRepository.deleteWord(word)
+    }
 }

@@ -38,6 +38,12 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
                     it(module)
                 }
             }
+            holder.binding.root.setOnClickListener {
+                onClickListener?.let {
+                    it(module)
+                }
+            }
+
         }
     }
 
@@ -47,6 +53,10 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
     private var onDeleteClickListener: ((Module)->Unit)?= null
     fun setOnDeleteClickListener(listener :(Module)->Unit){
         onDeleteClickListener = listener
+    }
+    private var onClickListener: ((Module)->Unit)?= null
+    fun setOnClickListener(listener :(Module)->Unit){
+        onClickListener = listener
     }
 
 }

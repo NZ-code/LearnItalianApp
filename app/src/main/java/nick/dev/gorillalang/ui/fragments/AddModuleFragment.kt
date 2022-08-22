@@ -20,6 +20,7 @@ class AddModuleFragment:Fragment(R.layout.fragment_add_module) {
 
         binding.btnAddModule.setOnClickListener {
             languageViewModel.saveModule(Module(binding.etModuleName.text.toString()))
+
             Navigation.findNavController(view).navigate(R.id.navigateToVocabularyFromAddModule)
         }
 
