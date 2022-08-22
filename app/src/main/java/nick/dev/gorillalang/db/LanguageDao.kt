@@ -22,4 +22,7 @@ interface LanguageDao {
     @Query("select * from modules where id = :moduleId")
     fun getModuleWithWords(moduleId:Int):LiveData<List<ModuleWithWords>>
 
+    @Delete
+    suspend fun deleteWord(word: Word)
+
 }

@@ -42,14 +42,18 @@ class VocabularyFragment : Fragment() {
         languageViewModel.getUserModules().observe(viewLifecycleOwner, Observer {
             moduleAdapter.differ.submitList(it)
         })
-
+        moduleAdapter.setOnDeleteClickListener {
+            languageViewModel.deleteModule(module = it)
+        }
+        moduleAdapter.setOnClickListener {
+            val action = VocabularyFragmentDirections.actionVocabularyFragmentToModuleFragment(it)
+            Navigation.findNavController(view).navigate(action)
+        }
     }
     fun setupRecyclerView(){
 
         moduleAdapter = ModuleAdapter()
-        moduleAdapter.setOnDeleteClickListener {
-            languageViewModel.deleteModule(module = it)
-        }
+
         binding.rvModule.apply {
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             adapter = moduleAdapter
