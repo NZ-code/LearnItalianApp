@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/learningFragment"
+        android:icon="@drawable/ic_learning"
+        android:title="Learning" />
+    <item
+        android:id="@+id/mistakesFragment"
+        android:icon="@drawable/ic_mistakes"
+        android:title="Mistakes" />
+    <item
+        android:id="@+id/vocabularyFragment"
+        android:icon="@drawable/ic_vocabulary"
+        android:title="Vocabulary" />
+</menu>
