@@ -48,4 +48,12 @@
             android:name="selectedModule"
             app:argType="nick.dev.gorillalang.models.Module" />
     </fragment>
+    <fragment
+        android:id="@+id/learningFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.LearningFragment"
+        android:label="LearningFragment" />
+    <fragment
+        android:id="@+id/mistakesFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.MistakesFragment"
+        android:label="MistakesFragment" />
 </navigation>
