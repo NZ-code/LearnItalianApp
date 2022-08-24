@@ -1,4 +1,4 @@
-package nick.dev.gorillalang.ui.fragments
+package nick.dev.gorillalang.ui.fragments.vocabulary
 
 import android.os.Bundle
 import android.view.View
