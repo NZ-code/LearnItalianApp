@@ -5,7 +5,7 @@
     app:startDestination="@id/vocabularyFragment">
     <fragment
         android:id="@+id/vocabularyFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.VocabularyFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.vocabulary.VocabularyFragment"
         android:label="VocabularyFragment" >
         <action
             android:id="@+id/navigateToAddModuleFromVocabulary"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/addModuleFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.AddModuleFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.vocabulary.AddModuleFragment"
         android:label="AddModuleFragment" >
         <action
             android:id="@+id/navigateToVocabularyFromAddModule"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/moduleFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.ModuleFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.vocabulary.ModuleFragment"
         android:label="ModuleFragment" >
         <argument
             android:name="selectedModule"
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/addWordFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.AddWordFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.vocabulary.AddWordFragment"
         android:label="AddWordFragment" >
         <action
             android:id="@+id/action_addWordFragment_to_moduleFragment"
@@ -50,10 +50,10 @@
     </fragment>
     <fragment
         android:id="@+id/learningFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.LearningFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.learning.LearningFragment"
         android:label="LearningFragment" />
     <fragment
         android:id="@+id/mistakesFragment"
-        android:name="nick.dev.gorillalang.ui.fragments.MistakesFragment"
+        android:name="nick.dev.gorillalang.ui.fragments.mistakes.MistakesFragment"
         android:label="MistakesFragment" />
 </navigation>

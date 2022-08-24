@@ -1,4 +1,4 @@
-package nick.dev.gorillalang.ui.fragments
+package nick.dev.gorillalang.ui.fragments.vocabulary
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +46,10 @@ class VocabularyFragment : Fragment() {
             languageViewModel.deleteModule(module = it)
         }
         moduleAdapter.setOnClickListener {
-            val action = VocabularyFragmentDirections.actionVocabularyFragmentToModuleFragment(it)
+            val action =
+                nick.dev.gorillalang.ui.fragments.vocabulary.VocabularyFragmentDirections.actionVocabularyFragmentToModuleFragment(
+                    it
+                )
             Navigation.findNavController(view).navigate(action)
         }
     }
