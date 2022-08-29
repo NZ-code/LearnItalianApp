@@ -3,7 +3,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-
+    id 'com.google.gms.google-services'
 }
 apply plugin: "androidx.navigation.safeargs"
 android {
@@ -66,4 +66,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.5.1"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    // Firebase Firestore
+    implementation 'com.google.firebase:firebase-firestore:24.2.2'
+
+    // Firebase Storage KTX
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+
+    // Firebase Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.1'
 }

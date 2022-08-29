@@ -26,13 +26,28 @@ class UserModulesFragment:Fragment(R.layout.fragment_user_modules) {
 
     private lateinit var binding: FragmentUserModulesBinding
     lateinit var languageViewModel: LanguageViewModel
+    lateinit var moduleAdapter: ModuleAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel =(activity as MainActivity).languageViewModel
         binding = FragmentUserModulesBinding.bind(view)
+        setupRecyclerView()
 
+
+        languageViewModel.getUserModules().observe(viewLifecycleOwner,{
+            moduleAdapter.differ.submitList(it)
+        })
 
 
     }
+    fun setupRecyclerView(){
 
+        moduleAdapter = ModuleAdapter()
+
+        binding.rvModule.apply {
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            adapter = moduleAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
 }

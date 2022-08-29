@@ -5,43 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/tvLearnWord"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
 
         android:gravity="center"
+        android:maxLines="1"
+
+        android:singleLine="true"
         android:text="Italian"
-        android:textSize="18sp"
+
+
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserWord"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvUserWord"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvUserWord"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
 
         android:gravity="center"
+        android:maxLines="1"
+
+        android:singleLine="true"
         android:text="English"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textStyle="italic"
+
+        app:layout_constrainedWidth="true"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLearnWord" />
+        app:layout_constraintEnd_toStartOf="@+id/ibDelete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvLearnWord"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/ibDelete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_gravity="right"
         android:contentDescription="Delete button"
         android:minHeight="48dp"
         android:src="@drawable/ic_trash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.ActivityMainBinding
 import nick.dev.gorillalang.db.LanguageDatabase
+import nick.dev.gorillalang.remote.RemoteLanguageDatabase
 import nick.dev.gorillalang.repository.LanguageRepository
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModelProviderFactory
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val languageRepository = LanguageRepository(LanguageDatabase(this))
+        val languageRepository = LanguageRepository(LanguageDatabase(this),
+            RemoteLanguageDatabase()
+        )
         val languageViewModelProviderFactory = LanguageViewModelProviderFactory(application, languageRepository)
         languageViewModel = ViewModelProvider(this, languageViewModelProviderFactory)[LanguageViewModel::class.java]
         super.onCreate(savedInstanceState)
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
     }
 
 }

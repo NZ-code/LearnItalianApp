@@ -35,8 +35,12 @@ class WordAdapter :RecyclerView.Adapter<WordAdapter.WordViewHolder>(){
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val word= differ.currentList[position]
         holder.binding.apply {
-            tvLearnWord.text = "italian: "+word.moduleLearnLang
-            tvUserWord.text = "english: "+word.moduleUserLang
+
+            tvLearnWord.text = word.moduleLearnLang
+            tvUserWord.text = word.moduleUserLang
+            if(word.isRemote){
+                ibDelete.visibility = View.GONE
+            }
             ibDelete.setOnClickListener{
                 onDeleteClickListener?.let {
                     it(word)
