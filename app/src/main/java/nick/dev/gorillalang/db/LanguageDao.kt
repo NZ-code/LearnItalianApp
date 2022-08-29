@@ -3,6 +3,7 @@ package nick.dev.gorillalang.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.RemoteWordsProgress
 import nick.dev.gorillalang.models.Word
 import nick.dev.gorillalang.models.relations.ModuleWithWords
 
@@ -24,5 +25,13 @@ interface LanguageDao {
 
     @Delete
     suspend fun deleteWord(word: Word)
+
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertRemoteWordsProgress(progress: RemoteWordsProgress):Long
+
+    @Query("SELECT * FROM remoteWordsProgress where remoteWordId = :id")
+    fun getRemoteProgressById(id:String):LiveData<List<RemoteWordsProgress>>
 
 }

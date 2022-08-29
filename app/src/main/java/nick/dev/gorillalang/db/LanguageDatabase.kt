@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.RemoteWordsProgress
 import nick.dev.gorillalang.models.Word
 
 
 @Database(
-    entities =[Module::class, Word::class],
+    entities =[Module::class, Word::class,RemoteWordsProgress::class],
 
     version = 1
 )

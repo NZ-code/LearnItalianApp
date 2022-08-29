@@ -12,6 +12,7 @@ import nick.dev.gorillalang.adapters.WordAdapter
 import nick.dev.gorillalang.databinding.FragmentModuleBinding
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
+import java.util.*
 
 class ModuleFragment:Fragment(R.layout.fragment_module) {
     val args: nick.dev.gorillalang.ui.fragments.vocabulary.ModuleFragmentArgs by navArgs()
@@ -22,21 +23,49 @@ class ModuleFragment:Fragment(R.layout.fragment_module) {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel =(activity as MainActivity).languageViewModel
         binding = FragmentModuleBinding.bind(view)
+
         setupRecyclerView()
 
-        binding.textView2.text = args.selectedModule.moduleName
+
+        var selectedModule = args.selectedModule
+
+
+
+        binding.textView2.text = selectedModule.moduleName.replaceFirstChar {
+            it -> it.uppercase()
+        }
         binding.btnAddWord.setOnClickListener {
             val action =
-                nick.dev.gorillalang.ui.fragments.vocabulary.ModuleFragmentDirections.actionModuleFragmentToAddWordFragment(
-                    args.selectedModule
+                ModuleFragmentDirections.actionModuleFragmentToAddWordFragment(
+                    selectedModule
                 )
             Navigation.findNavController(view).navigate(action)
         }
-        languageViewModel.getModuleWithWords(args.selectedModule.id).observe(viewLifecycleOwner,
-            Observer {
-                wordAdapter.differ.submitList(it[0].words)
+        if(selectedModule.isRemote){
+            binding.rvWords.visibility = View.GONE
 
-            })
+            languageViewModel.getWordByRemoteModule(selectedModule).addOnSuccessListener {
+                Thread.sleep(100)
+                binding.rvWords.visibility = View.VISIBLE
+
+            }
+            languageViewModel.words.observe(viewLifecycleOwner,
+                Observer {
+                    wordAdapter.differ.submitList(it)
+
+
+                })
+
+        }
+        else{
+            languageViewModel.getModuleWithWords(selectedModule.id).observe(viewLifecycleOwner,
+                Observer {
+                    wordAdapter.differ.submitList(it[0].words)
+
+                })
+        }
+
+
     }
     fun setupRecyclerView(){
 

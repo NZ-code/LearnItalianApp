@@ -8,7 +8,8 @@ import java.io.Serializable
     tableName = "modules"
 )
 data class Module(
-    val moduleName:String
+    val moduleName:String,
+    val isRemote:Boolean = false
 ):Serializable{
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0

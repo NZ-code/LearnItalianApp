@@ -39,11 +39,26 @@ class VocabularyFragment : Fragment() {
         binding.btnAddModule.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigateToAddModuleFromVocabulary)
         }
-        languageViewModel.getUserModules().observe(viewLifecycleOwner, Observer {
-            moduleAdapter.differ.submitList(it)
+
+        // public
+        languageViewModel.getPublicModules()
+        languageViewModel.publicModules.observe(viewLifecycleOwner, Observer {
+
+            moduleAdapter.differ.submitList((moduleAdapter.differ.currentList + it).distinct())
         })
+
+
+        // user
+        languageViewModel.getUserModules().observe(viewLifecycleOwner, Observer {
+
+            moduleAdapter.differ.submitList((moduleAdapter.differ.currentList + it).distinct())
+
+        })
+
         moduleAdapter.setOnDeleteClickListener {
+            moduleAdapter.differ.currentList
             languageViewModel.deleteModule(module = it)
+
         }
         moduleAdapter.setOnClickListener {
             val action =

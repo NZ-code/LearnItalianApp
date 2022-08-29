@@ -14,6 +14,7 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
 
     inner class ModuleViewHolder(val binding: ItemModuleHeaderBinding) : RecyclerView.ViewHolder(binding.root)
     private val differCallback = object :DiffUtil.ItemCallback<Module>(){
+
         override fun areItemsTheSame(oldItem: Module, newItem: Module): Boolean {
             return newItem.id == oldItem.id
         }
@@ -21,6 +22,8 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
         override fun areContentsTheSame(oldItem: Module, newItem: Module): Boolean {
             return newItem == oldItem
         }
+
+
     }
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
@@ -32,7 +35,13 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
     override fun onBindViewHolder(holder: ModuleViewHolder, position: Int) {
         val module = differ.currentList[position]
         holder.binding.apply {
-            tvModule.text = module.moduleName
+            if(module.isRemote){
+                ibDelete.visibility = View.GONE
+            }
+
+            tvModule.text = module.moduleName.replaceFirstChar {
+                it.uppercase()
+            }
             ibDelete.setOnClickListener{
                 onDeleteClickListener?.let {
                     it(module)
