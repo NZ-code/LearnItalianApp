@@ -6,20 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.ItemModuleHeaderBinding
-import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.ModuleRemote
 
 class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
 
     inner class ModuleViewHolder(val binding: ItemModuleHeaderBinding) : RecyclerView.ViewHolder(binding.root)
-    private val differCallback = object :DiffUtil.ItemCallback<Module>(){
+    private val differCallback = object :DiffUtil.ItemCallback<ModuleRemote>(){
 
-        override fun areItemsTheSame(oldItem: Module, newItem: Module): Boolean {
-            return newItem.id == oldItem.id
+        override fun areItemsTheSame(oldItem: ModuleRemote, newItem: ModuleRemote): Boolean {
+            return newItem.remoteId == oldItem.remoteId
         }
 
-        override fun areContentsTheSame(oldItem: Module, newItem: Module): Boolean {
+        override fun areContentsTheSame(oldItem: ModuleRemote, newItem: ModuleRemote): Boolean {
             return newItem == oldItem
         }
 
@@ -59,12 +58,12 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-    private var onDeleteClickListener: ((Module)->Unit)?= null
-    fun setOnDeleteClickListener(listener :(Module)->Unit){
+    private var onDeleteClickListener: ((ModuleRemote)->Unit)?= null
+    fun setOnDeleteClickListener(listener :(ModuleRemote)->Unit){
         onDeleteClickListener = listener
     }
-    private var onClickListener: ((Module)->Unit)?= null
-    fun setOnClickListener(listener :(Module)->Unit){
+    private var onClickListener: ((ModuleRemote)->Unit)?= null
+    fun setOnClickListener(listener :(ModuleRemote)->Unit){
         onClickListener = listener
     }
 

@@ -5,15 +5,14 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(
-    tableName = "words"
+    tableName = "words_remote"
 )
-data class Word(
+
+data class WordRemote  (
     val moduleUserLang:String,
     val moduleLearnLang:String,
-    val moduleId: Int,
+    val moduleId: String,
     val isRemote:Boolean = false,
+    @PrimaryKey(autoGenerate = false)
     val remoteId:String
-):Serializable{
-    @PrimaryKey(autoGenerate = true)
-    var id:Int = 0
-}
+):Serializable

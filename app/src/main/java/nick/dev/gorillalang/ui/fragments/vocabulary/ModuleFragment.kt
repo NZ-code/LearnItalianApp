@@ -58,9 +58,9 @@ class ModuleFragment:Fragment(R.layout.fragment_module) {
 
         }
         else{
-            languageViewModel.getModuleWithWords(selectedModule.id).observe(viewLifecycleOwner,
+            languageViewModel.getModuleWithWords(selectedModule.remoteId).observe(viewLifecycleOwner,
                 Observer {
-                    wordAdapter.differ.submitList(it[0].words)
+                    wordAdapter.differ.submitList(it[0].wordRemotes)
 
                 })
         }

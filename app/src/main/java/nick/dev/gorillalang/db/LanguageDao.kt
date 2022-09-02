@@ -2,29 +2,31 @@ package nick.dev.gorillalang.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.ModuleRemote
+import nick.dev.gorillalang.models.RemoteModuleProgress
 import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.Word
-import nick.dev.gorillalang.models.relations.ModuleWithWords
+import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.relations.ModuleWithWordsRemote
+
 
 @Dao
 interface LanguageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertModule(module: Module):Long
-    @Query("SELECT * FROM modules")
-    fun getAllModules():LiveData<List<Module>>
+    suspend fun upsertModule(moduleRemote: ModuleRemote):Long
+    @Query("SELECT * FROM modules_remote")
+    fun getAllModules():LiveData<List<ModuleRemote>>
     @Delete
-    suspend fun deleteModule(module: Module)
+    suspend fun deleteModule(moduleRemote: ModuleRemote)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertWord(word: Word):Long
+    suspend fun upsertWord(wordRemote: WordRemote):Long
 
     @Transaction
-    @Query("select * from modules where id = :moduleId")
-    fun getModuleWithWords(moduleId:Int):LiveData<List<ModuleWithWords>>
+    @Query("select * from modules_remote where remoteId = :moduleId")
+    fun getModuleWithWords(moduleId:String):LiveData<List<ModuleWithWordsRemote>>
 
     @Delete
-    suspend fun deleteWord(word: Word)
+    suspend fun deleteWord(wordRemote: WordRemote)
 
 
 
@@ -33,5 +35,13 @@ interface LanguageDao {
 
     @Query("SELECT * FROM remoteWordsProgress where remoteWordId = :id")
     fun getRemoteProgressById(id:String):LiveData<List<RemoteWordsProgress>>
+
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertRemoteModulesProgress(progress: RemoteModuleProgress):Long
+
+    @Query("SELECT * FROM remoteModulesProgress where remoteModuleId = :id")
+    fun getRemoteModuleProgressById(id:String):LiveData<List<RemoteModuleProgress>>
 
 }

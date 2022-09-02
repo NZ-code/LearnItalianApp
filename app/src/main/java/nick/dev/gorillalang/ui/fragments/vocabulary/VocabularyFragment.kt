@@ -57,7 +57,7 @@ class VocabularyFragment : Fragment() {
 
         moduleAdapter.setOnDeleteClickListener {
             moduleAdapter.differ.currentList
-            languageViewModel.deleteModule(module = it)
+            languageViewModel.deleteModule(moduleRemote = it)
 
         }
         moduleAdapter.setOnClickListener {
