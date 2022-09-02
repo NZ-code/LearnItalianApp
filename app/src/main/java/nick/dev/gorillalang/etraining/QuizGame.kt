@@ -1,9 +1,8 @@
 package nick.dev.gorillalang.etraining
 
-import nick.dev.gorillalang.models.Word
-import kotlin.random.Random
+import nick.dev.gorillalang.models.WordRemote
 
-class QuizGame(val words:List<Word>){
+class QuizGame(val wordRemotes:List<WordRemote>){
     var gameQuestionsNum:Int = 0
     private val questions = mutableListOf<Question>()
     val wasRightList= mutableListOf<Question>()
@@ -20,18 +19,18 @@ class QuizGame(val words:List<Word>){
 
         // words for the quiz
 
-        val quizNum = 6
-        val matchNum = 3
-        val writingNum = 2
+        val quizNum = 3
+        val matchNum = 2
+        val writingNum = 1
         gameQuestionsNum = quizNum+matchNum+writingNum
-        val quizWords = words.shuffled().takeLast(quizNum)
+        val quizWords = wordRemotes.shuffled().takeLast(quizNum)
 
 
         for(quizWord in quizWords){
-            questions.add(QuizQuestion(quizWord, words))
+            questions.add(QuizQuestion(quizWord, wordRemotes))
         }
         repeat(matchNum){
-            questions.add(MatchQuestion(words))
+            questions.add(MatchQuestion(wordRemotes))
         }
         questions.shuffled()
 
@@ -58,7 +57,7 @@ class QuizGame(val words:List<Word>){
     fun nextQuestion(){
         currentQuestionId++
     }
-    fun updateProgress(word:Word, progress:Int){
+    fun updateProgress(wordRemote:WordRemote, progress:Int){
 
     }
 }

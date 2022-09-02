@@ -32,12 +32,12 @@
         android:id="@+id/moduleFragment"
         android:name="nick.dev.gorillalang.ui.fragments.vocabulary.ModuleFragment"
         android:label="ModuleFragment" >
-        <argument
-            android:name="selectedModule"
-            app:argType="nick.dev.gorillalang.models.Module" />
         <action
             android:id="@+id/action_moduleFragment_to_addWordFragment"
             app:destination="@id/addWordFragment" />
+        <argument
+            android:name="selectedModule"
+            app:argType="nick.dev.gorillalang.models.ModuleRemote" />
     </fragment>
     <fragment
         android:id="@+id/addWordFragment"
@@ -48,7 +48,7 @@
             app:destination="@id/moduleFragment" />
         <argument
             android:name="selectedModule"
-            app:argType="nick.dev.gorillalang.models.Module" />
+            app:argType="nick.dev.gorillalang.models.ModuleRemote" />
     </fragment>
     <fragment
         android:id="@+id/learningFragment"

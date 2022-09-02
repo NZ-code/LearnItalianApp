@@ -4,26 +4,25 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.FragmentQuizBinding
 import nick.dev.gorillalang.etraining.QuizQuestion
 import nick.dev.gorillalang.ui.TrainingActivity
-import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
+import nick.dev.gorillalang.ui.viewModels.TrainingViewModel
 
 class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) {
 
     private var isPicked = false
     private lateinit var binding: FragmentQuizBinding
-    //lateinit var languageViewModel: LanguageViewModel
+    lateinit var trainingViewModel: TrainingViewModel
     private var pickedOption = -1
     lateinit var trainingActivity : TrainingActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         trainingActivity = activity as TrainingActivity
-        //languageViewModel =trainingActivity.languageViewModel
+        trainingViewModel =trainingActivity.trainingViewModel
         binding = FragmentQuizBinding.bind(view)
 
         trainingActivity.playWord(question.question)
@@ -73,7 +72,7 @@ class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) 
                     showAnswer(goodAnswer)
                     if(goodAnswer == pickedOption){
                         trainingActivity.updateScore(true)
-
+                        trainingViewModel.addGoodAnsweredQuestion(question)
                     }
                     else{
                         trainingActivity.updateScore(false)

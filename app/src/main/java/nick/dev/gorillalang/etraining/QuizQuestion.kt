@@ -1,16 +1,15 @@
 package nick.dev.gorillalang.etraining
 
-import android.util.Log
-import nick.dev.gorillalang.models.Word
+import nick.dev.gorillalang.models.WordRemote
 
-class QuizQuestion(val questionWord:Word, val words:List<Word>
+class QuizQuestion(val questionWordRemote:WordRemote, val wordRemotes:List<WordRemote>
 ):Question(){
 
-    val question:String = questionWord.moduleLearnLang
-    val options:List<String> = (words.shuffled().filter { it.moduleLearnLang != question }
-        .takeLast(3).map { it->it.moduleUserLang  } + questionWord.moduleUserLang).shuffled()
-    val rightAnswer = questionWord.moduleUserLang
-    override var rightAnswerId: Int = options.indexOf(questionWord.moduleUserLang)
+    val question:String = questionWordRemote.moduleLearnLang
+    val options:List<String> = (wordRemotes.shuffled().filter { it.moduleLearnLang != question }
+        .takeLast(3).map { it->it.moduleUserLang  } + questionWordRemote.moduleUserLang).shuffled()
+    val rightAnswer = questionWordRemote.moduleUserLang
+    override var rightAnswerId: Int = options.indexOf(questionWordRemote.moduleUserLang)
     override var type = Question.TYPE_QUIZ
     override var progressVal: Int = 2
 }

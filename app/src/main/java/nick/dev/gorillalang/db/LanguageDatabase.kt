@@ -5,15 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.ModuleRemote
+import nick.dev.gorillalang.models.RemoteModuleProgress
 import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.Word
+import nick.dev.gorillalang.models.WordRemote
 
 
 @Database(
-    entities =[Module::class, Word::class,RemoteWordsProgress::class],
+    entities =[ModuleRemote::class, WordRemote::class,RemoteWordsProgress::class,RemoteModuleProgress::class],
 
-    version = 1
+    version = 2
 )
 abstract class LanguageDatabase: RoomDatabase(){
     abstract fun getLanguageDao(): LanguageDao

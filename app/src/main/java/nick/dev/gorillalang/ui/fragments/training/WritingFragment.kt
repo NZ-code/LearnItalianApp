@@ -2,7 +2,6 @@ package nick.dev.gorillalang.ui.fragments.training
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -12,7 +11,7 @@ import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.FragmentWritingBinding
 import nick.dev.gorillalang.etraining.WritingQuestion
 import nick.dev.gorillalang.ui.TrainingActivity
-import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
+import nick.dev.gorillalang.ui.viewModels.TrainingViewModel
 import kotlin.math.max
 import kotlin.math.min
 
@@ -21,7 +20,7 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
 
 
     private lateinit var binding: FragmentWritingBinding
-    lateinit var languageViewModel: LanguageViewModel
+    lateinit var trainingViewModel: TrainingViewModel
     private var currentPosition = 0
     private val blankViews = mutableListOf<TextView>()
     private val lettersViews = mutableListOf<TextView>()
@@ -31,7 +30,7 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
     private var isChecked = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        languageViewModel = (activity as TrainingActivity).languageViewModel
+        trainingViewModel = (activity as TrainingActivity).trainingViewModel
         trainingActivity = activity as TrainingActivity
         binding = FragmentWritingBinding.bind(view)
 
@@ -71,7 +70,7 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
                 if(writingQuestion.rightAnswer == blankViews.joinToString("") { it.text }){
                     binding.tvAnswer.text = "Great"
                     trainingActivity.updateScore(true)
-
+                    trainingViewModel.addGoodAnsweredQuestion(writingQuestion)
                 }
                 else{
                     binding.tvAnswer.text = "Wrong!\n Answer:${writingQuestion.rightAnswer}"

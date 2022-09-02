@@ -1,25 +1,17 @@
 package nick.dev.gorillalang.ui.fragments.training
 
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import nick.dev.gorillalang.R
-import nick.dev.gorillalang.adapters.PagerAdapter
-import nick.dev.gorillalang.databinding.FragmentLearningBinding
 import nick.dev.gorillalang.databinding.FragmentMatchBinding
-import nick.dev.gorillalang.databinding.FragmentQuizBinding
 import nick.dev.gorillalang.etraining.MatchQuestion
-import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.TrainingActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
-import org.w3c.dom.Text
+import nick.dev.gorillalang.ui.viewModels.TrainingViewModel
 
 class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragment_match) {
 
@@ -29,7 +21,7 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
     private var rightPickedId = -1
     private var wasNoMistake = true
     private lateinit var binding: FragmentMatchBinding
-    lateinit var languageViewModel: LanguageViewModel
+    lateinit var trainingViewModel: TrainingViewModel
     lateinit var leftTextViews:List<TextView>
     lateinit var rightTextViews: List<TextView>
     var leftFinishedIds = mutableListOf<Int>()
@@ -37,7 +29,7 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
     lateinit var trainingActivity : TrainingActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        languageViewModel =(activity as TrainingActivity).languageViewModel
+        trainingViewModel =(activity as TrainingActivity).trainingViewModel
         trainingActivity = activity as TrainingActivity
         binding = FragmentMatchBinding.bind(view)
         if(matchQuestion.isLast){
@@ -78,7 +70,9 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
                 binding.btnSubmit.visibility = View.VISIBLE
                 binding.btnSubmit.setOnClickListener{
                     trainingActivity.updateScore(wasNoMistake)
-
+                    if(wasNoMistake){
+                        trainingViewModel.addGoodAnsweredQuestion(matchQuestion)
+                    }
                     if(matchQuestion.isLast){
 
                         trainingActivity.showResults()

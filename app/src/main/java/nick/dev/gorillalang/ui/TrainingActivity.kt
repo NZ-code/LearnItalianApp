@@ -5,37 +5,33 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.ActivityTrainingBinding
 import nick.dev.gorillalang.db.LanguageDatabase
 import nick.dev.gorillalang.etraining.*
-import nick.dev.gorillalang.models.Module
-import nick.dev.gorillalang.models.Word
+import nick.dev.gorillalang.models.ModuleRemote
 import nick.dev.gorillalang.remote.RemoteLanguageDatabase
 import nick.dev.gorillalang.repository.LanguageRepository
 import nick.dev.gorillalang.ui.fragments.training.MatchFragment
 import nick.dev.gorillalang.ui.fragments.training.QuizFragment
 import nick.dev.gorillalang.ui.fragments.training.TrainingResultFragment
 import nick.dev.gorillalang.ui.fragments.training.WritingFragment
-import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
-import nick.dev.gorillalang.ui.viewModels.LanguageViewModelProviderFactory
-import nick.dev.gorillalang.ui.viewModels.toListOfWords
+import nick.dev.gorillalang.ui.viewModels.*
 import java.util.*
 
 class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
-    lateinit var languageViewModel: LanguageViewModel
+    lateinit var trainingViewModel: TrainingViewModel
     lateinit var binding : ActivityTrainingBinding
-    lateinit var  selectedModule:Module
+    lateinit var  selectedModuleRemote:ModuleRemote
     lateinit var quizGame : QuizGame
     private var tts: TextToSpeech? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        selectedModule = intent.getSerializableExtra("selectedModule") as Module
+        selectedModuleRemote = intent.getSerializableExtra("selectedModule") as ModuleRemote
         val languageRepository = LanguageRepository(LanguageDatabase(this),
             RemoteLanguageDatabase()
         )
-        val languageViewModelProviderFactory = LanguageViewModelProviderFactory(application, languageRepository)
-        languageViewModel = ViewModelProvider(this, languageViewModelProviderFactory)[LanguageViewModel::class.java]
+        val trainingViewModelProviderFactory = TrainingViewModelProviderFactory(application, languageRepository,selectedModuleRemote)
+        trainingViewModel = ViewModelProvider(this, trainingViewModelProviderFactory)[TrainingViewModel::class.java]
         super.onCreate(savedInstanceState)
         binding =ActivityTrainingBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -49,9 +45,9 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
 
     fun getWords(){
 
-        languageViewModel.getWordByRemoteModule(selectedModule).addOnSuccessListener {
-            val wordsFromModule = it.toListOfWords(selectedModule)
-            quizGame = languageViewModel.getNewQuizGame(wordsFromModule)
+        trainingViewModel.getWordByRemoteModule(selectedModuleRemote).addOnSuccessListener {
+            val wordsFromModule = it.toListOfWords(selectedModuleRemote)
+            quizGame = trainingViewModel.getNewQuizGame(wordsFromModule)
             goToFragment(quizGame.getCurrentQuestion())
 
         }
@@ -95,9 +91,8 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
             replace(R.id.flFragment, TrainingResultFragment())
             commit()
         }
-        for(q in quizGame.wasRightList){
-            languageViewModel.upsertRemoteProgress(q)
-        }
+
+        trainingViewModel.updateProgress()
 
     }
 
