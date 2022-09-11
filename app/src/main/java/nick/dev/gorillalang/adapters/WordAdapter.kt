@@ -23,6 +23,7 @@ class WordAdapter :RecyclerView.Adapter<WordAdapter.WordViewHolder>(){
         }
     }
     val differ = AsyncListDiffer(this, differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemWordHeaderBinding.inflate(layoutInflater,parent,false)
@@ -34,7 +35,16 @@ class WordAdapter :RecyclerView.Adapter<WordAdapter.WordViewHolder>(){
         holder.binding.apply {
 
             tvLearnWord.text = word.moduleLearnLang
+
             tvUserWord.text = word.moduleUserLang
+            val progress = word.progress
+            if(progress == 0){
+                tvProgress.text = ""
+            }
+            else{
+                tvProgress.text = progress.toString()
+            }
+
             if(word.isRemote){
                 ibDelete.visibility = View.GONE
             }

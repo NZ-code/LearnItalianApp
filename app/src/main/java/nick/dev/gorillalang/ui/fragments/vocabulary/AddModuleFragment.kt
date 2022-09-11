@@ -9,6 +9,7 @@ import nick.dev.gorillalang.databinding.FragmentAddModuleBinding
 import nick.dev.gorillalang.models.ModuleRemote
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
+import java.util.*
 
 class AddModuleFragment:Fragment(R.layout.fragment_add_module) {
     private lateinit var binding: FragmentAddModuleBinding
@@ -19,7 +20,8 @@ class AddModuleFragment:Fragment(R.layout.fragment_add_module) {
         binding = FragmentAddModuleBinding.bind(view)
 
         binding.btnAddModule.setOnClickListener {
-            languageViewModel.saveModule(ModuleRemote(binding.etModuleName.text.toString(),false,""))
+            val uniqueID = UUID.randomUUID().toString()
+            languageViewModel.saveModule(ModuleRemote(binding.etModuleName.text.toString(),false,uniqueID))
 
             Navigation.findNavController(view).apply {
 

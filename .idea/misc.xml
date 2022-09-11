@@ -5,13 +5,16 @@
       <map>
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable-anydpi/ic_play.xml" value="0.172" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/divider.xml" value="0.1" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/ic_learning.xml" value="0.148" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/ic_play.xml" value="0.1" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/drawable/ic_play_foreground.xml" value="0.172" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/activity_main.xml" value="0.1513467293715263" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/activity_training.xml" value="0.152" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_add_module.xml" value="0.136" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_add_word.xml" value="0.1" />
-        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_learning.xml" value="0.152" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_learning.xml" value="0.1" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_match.xml" value="0.2" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_mistakes.xml" value="0.1513467293715263" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_module.xml" value="0.1634963768115942" />
@@ -19,10 +22,13 @@
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_quiz.xml" value="0.4" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_result_training.xml" value="0.1" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_user_modules.xml" value="0.11928174433518597" />
-        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_vocabulary.xml" value="0.264" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_vocabulary.xml" value="0.152" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_vocabulary_public.xml" value="0.1" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_vocabulary_user.xml" value="0.2" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/fragment_writing.xml" value="0.1" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/item_module_header.xml" value="0.176" />
-        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/item_word_header.xml" value="0.1" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/item_module_header_vocabulary.xml" value="0.11015412511332728" />
+        <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/item_word_header.xml" value="0.2" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/layout/quiz_fragment.xml" value="0.264" />
         <entry key="..\:/AndroidCourse/GorillaLang/app/src/main/res/menu/nav_menu.xml" value="0.2" />
       </map>
