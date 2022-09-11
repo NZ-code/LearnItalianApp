@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import nick.dev.gorillalang.databinding.ItemModuleHeaderBinding
+import nick.dev.gorillalang.databinding.ItemModuleHeaderVocabularyBinding
 import nick.dev.gorillalang.models.ModuleRemote
 
-class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
+class VocabularyModuleAdapter :RecyclerView.Adapter<VocabularyModuleAdapter.ModuleViewHolder>(){
 
-    inner class ModuleViewHolder(val binding: ItemModuleHeaderBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ModuleViewHolder(val binding: ItemModuleHeaderVocabularyBinding) : RecyclerView.ViewHolder(binding.root)
     private val differCallback = object :DiffUtil.ItemCallback<ModuleRemote>(){
 
         override fun areItemsTheSame(oldItem: ModuleRemote, newItem: ModuleRemote): Boolean {
@@ -27,7 +27,7 @@ class ModuleAdapter :RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>(){
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemModuleHeaderBinding.inflate(layoutInflater,parent,false)
+        val binding = ItemModuleHeaderVocabularyBinding.inflate(layoutInflater,parent,false)
         return ModuleViewHolder(binding)
     }
 

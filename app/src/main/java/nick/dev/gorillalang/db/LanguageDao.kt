@@ -34,7 +34,7 @@ interface LanguageDao {
     suspend fun upsertRemoteWordsProgress(progress: RemoteWordsProgress):Long
 
     @Query("SELECT * FROM remoteWordsProgress where remoteWordId = :id")
-    fun getRemoteProgressById(id:String):LiveData<List<RemoteWordsProgress>>
+    fun getRemoteWordProgress(id:String):LiveData<List<RemoteWordsProgress>>
 
 
 

@@ -51,6 +51,7 @@ class ModuleFragment:Fragment(R.layout.fragment_module) {
             }
             languageViewModel.words.observe(viewLifecycleOwner,
                 Observer {
+
                     wordAdapter.differ.submitList(it)
 
 

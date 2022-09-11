@@ -1,5 +1,6 @@
 package nick.dev.gorillalang.etraining
 
+import android.util.Log
 import nick.dev.gorillalang.models.WordRemote
 
 class QuizGame(val wordRemotes:List<WordRemote>){
@@ -23,7 +24,9 @@ class QuizGame(val wordRemotes:List<WordRemote>){
         val matchNum = 2
         val writingNum = 1
         gameQuestionsNum = quizNum+matchNum+writingNum
-        val quizWords = wordRemotes.shuffled().takeLast(quizNum)
+
+
+        val quizWords = wordRemotes.sortedByDescending{ wordRemote ->wordRemote.progress }.takeLast(quizNum)
 
 
         for(quizWord in quizWords){

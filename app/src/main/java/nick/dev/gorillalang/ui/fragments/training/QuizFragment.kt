@@ -28,11 +28,9 @@ class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) 
         trainingActivity.playWord(question.question)
         setSetup()
     }
-    fun setSetup(){
+    private fun setSetup(){
 
         binding.tvWord.text = question.question
-        println(question.options.toString())
-
         binding.tvOptionOne.apply {
             text = question.options[0]
             setOnClickListener {
@@ -82,16 +80,14 @@ class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) 
                     buttonPressedOnce(it as Button)
 
                 }
-                else{
 
-                }
             }
             else{
                 if(!question.isLast){
                     trainingActivity.nextQuestion()
                 }
                 else{
-                    trainingActivity.showResults()
+                    trainingActivity.finishQuiz()
                 }
 
 
@@ -101,25 +97,24 @@ class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) 
 
 
     }
-    fun buttonPressedOnce(imageButton: Button) {
+    private fun buttonPressedOnce(imageButton: Button) {
         imageButton.apply {
-            if(question.isLast){
-                text = "FINISH"
-            }
-            else{
-                text = "NEXT"
+            text = if(question.isLast){
+                "FINISH"
+            } else{
+                "NEXT"
             }
 
         }
     }
-    fun onPick(view: TextView){
+    private fun onPick(view: TextView){
         if(!isPicked){
             setDefaulViews()
             view.quizPicked()
         }
 
     }
-    fun showAnswer(rightAnswerId:Int){
+    private fun showAnswer(rightAnswerId:Int){
         when(pickedOption){
             0-> binding.tvOptionOne.quizBadAnswer()
             1-> binding.tvOptionTwo.quizBadAnswer()
@@ -140,23 +135,23 @@ class QuizFragment(val question: QuizQuestion):Fragment(R.layout.fragment_quiz) 
         }
 
     }
-    fun TextView.quizDefault(){
+    private fun TextView.quizDefault(){
         setBackgroundColor(Color.WHITE)
         setTextColor(Color.BLACK)
     }
-    fun TextView.quizPicked(){
+    private fun TextView.quizPicked(){
         setBackgroundColor(Color.GRAY)
         setTextColor(Color.WHITE)
     }
-    fun TextView.quizGoodAnswer(){
+    private fun TextView.quizGoodAnswer(){
         setBackgroundColor(Color.GREEN)
         setTextColor(Color.WHITE)
     }
-    fun TextView.quizBadAnswer(){
+    private fun TextView.quizBadAnswer(){
         setBackgroundColor(Color.RED)
         setTextColor(Color.WHITE)
     }
-    fun setDefaulViews(){
+    private fun setDefaulViews(){
 
         binding.tvOptionOne.apply {
             quizDefault()

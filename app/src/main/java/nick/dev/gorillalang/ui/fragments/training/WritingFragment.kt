@@ -57,7 +57,7 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
         binding.btnSubmit.setOnClickListener{
             if(isChecked){
                 if(writingQuestion.isLast){
-                    trainingActivity.showResults()
+                    trainingActivity.finishQuiz()
 
                 }
                 else{

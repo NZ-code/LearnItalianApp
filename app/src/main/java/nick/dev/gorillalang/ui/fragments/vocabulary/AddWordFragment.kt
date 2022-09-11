@@ -10,6 +10,7 @@ import nick.dev.gorillalang.databinding.FragmentAddWordBinding
 import nick.dev.gorillalang.models.WordRemote
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
+import java.util.*
 
 class AddWordFragment:Fragment(R.layout.fragment_add_word) {
     private val args : nick.dev.gorillalang.ui.fragments.vocabulary.AddWordFragmentArgs by navArgs()
@@ -22,19 +23,20 @@ class AddWordFragment:Fragment(R.layout.fragment_add_word) {
         binding = FragmentAddWordBinding.bind(view)
 
         binding.btnAddWord.setOnClickListener {
-//            val learnWord = binding.etLearnLangWord.text.toString()
-//            val userWord = binding.etUserLangWord.text.toString()
-//            val module = args.selectedModule
-//            languageViewModel.saveWord(WordRemote(userWord, learnWord, module.id,false,""))
-//            val action =
-//                nick.dev.gorillalang.ui.fragments.vocabulary.AddWordFragmentDirections.actionAddWordFragmentToModuleFragment(
-//                    module
-//                )
-//            Navigation.findNavController(view).apply {
-//
-//                navigate(action)
-//
-//            }
+            val learnWord = binding.etLearnLangWord.text.toString()
+            val userWord = binding.etUserLangWord.text.toString()
+            val module = args.selectedModule
+            val uniqueID = UUID.randomUUID().toString()
+            languageViewModel.saveWord(WordRemote(userWord, learnWord, module.remoteId,false,uniqueID))
+            val action =
+                nick.dev.gorillalang.ui.fragments.vocabulary.AddWordFragmentDirections.actionAddWordFragmentToModuleFragment(
+                    module
+                )
+            Navigation.findNavController(view).apply {
+
+                navigate(action)
+
+            }
 
         }
 

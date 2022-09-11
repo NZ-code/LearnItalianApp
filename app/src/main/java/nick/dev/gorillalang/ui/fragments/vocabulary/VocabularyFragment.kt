@@ -1,15 +1,16 @@
 package nick.dev.gorillalang.ui.fragments.vocabulary
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import nick.dev.gorillalang.R
-import nick.dev.gorillalang.adapters.ModuleAdapter
+import nick.dev.gorillalang.adapters.VocabularyPagerAdapter
 import nick.dev.gorillalang.databinding.FragmentVocabularyBinding
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
@@ -17,8 +18,10 @@ import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
 
 class VocabularyFragment : Fragment() {
     lateinit var languageViewModel: LanguageViewModel
-    lateinit var moduleAdapter: ModuleAdapter
+
     private lateinit var binding: FragmentVocabularyBinding
+    private lateinit var tabLayout : TabLayout
+    private lateinit var viewPager2 : ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,50 +38,20 @@ class VocabularyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel =(activity as MainActivity).languageViewModel
         binding = FragmentVocabularyBinding.bind(view)
-        setupRecyclerView()
-        binding.btnAddModule.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigateToAddModuleFromVocabulary)
+
+        tabLayout = binding.tlModules
+        viewPager2 = binding.vpLearning
+
+        viewPager2.adapter = VocabularyPagerAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager2){
+                tab,index->tab.text = when(index){
+            0->"Public Modules"
+            1->"User Modules"
+            else->{throw Resources.NotFoundException("Cannot find tab with index $index")}
         }
-
-        // public
-        languageViewModel.getPublicModules()
-        languageViewModel.publicModules.observe(viewLifecycleOwner, Observer {
-
-            moduleAdapter.differ.submitList((moduleAdapter.differ.currentList + it).distinct())
-        })
-
-
-        // user
-        languageViewModel.getUserModules().observe(viewLifecycleOwner, Observer {
-
-            moduleAdapter.differ.submitList((moduleAdapter.differ.currentList + it).distinct())
-
-        })
-
-        moduleAdapter.setOnDeleteClickListener {
-            moduleAdapter.differ.currentList
-            languageViewModel.deleteModule(moduleRemote = it)
-
-        }
-        moduleAdapter.setOnClickListener {
-            val action =
-                nick.dev.gorillalang.ui.fragments.vocabulary.VocabularyFragmentDirections.actionVocabularyFragmentToModuleFragment(
-                    it
-                )
-            Navigation.findNavController(view).navigate(action)
-        }
+        }.attach()
     }
-    fun setupRecyclerView(){
 
-        moduleAdapter = ModuleAdapter()
-
-        binding.rvModule.apply {
-            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-            adapter = moduleAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
-
-    }
 
 
 }

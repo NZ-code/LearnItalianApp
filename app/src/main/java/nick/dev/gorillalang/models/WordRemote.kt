@@ -11,8 +11,9 @@ import java.io.Serializable
 data class WordRemote  (
     val moduleUserLang:String,
     val moduleLearnLang:String,
-    val moduleId: String,
+    var moduleId: String,
     val isRemote:Boolean = false,
     @PrimaryKey(autoGenerate = false)
-    val remoteId:String
+    val remoteId:String,
+    var progress: Int = 0
 ):Serializable

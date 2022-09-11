@@ -4,10 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 import nick.dev.gorillalang.models.ModuleRemote
+import nick.dev.gorillalang.models.RemoteWordsProgress
 import nick.dev.gorillalang.models.WordRemote
 import nick.dev.gorillalang.repository.LanguageRepository
 
@@ -23,6 +25,11 @@ LanguageRepository):AndroidViewModel(app)
 
     private val _words = MutableLiveData<List<WordRemote>>()
     val words = _words
+    var wordsReady = false
+
+
+
+
 
     fun saveModule(moduleRemote: ModuleRemote) = viewModelScope.launch {
         languageRepository.upsertModule(moduleRemote)
@@ -35,6 +42,9 @@ LanguageRepository):AndroidViewModel(app)
     fun saveWord(wordRemote: WordRemote) = viewModelScope.launch {
         languageRepository.upsertWord(wordRemote)
     }
+
+
+
     fun getModuleWithWords(moduleId:String) = languageRepository.getModuleWithWords(moduleId)
     fun deleteWord(wordRemote:WordRemote) = viewModelScope.launch {
         languageRepository.deleteWord(wordRemote)
@@ -56,16 +66,14 @@ LanguageRepository):AndroidViewModel(app)
         }
     fun getWordByRemoteModule(moduleRemote: ModuleRemote) = languageRepository.getWordsByRemoteModule(moduleRemote)
         .addOnSuccessListener {
+
             _words.value = it.toListOfWords(moduleRemote)
-            Log.d("Firebase","get all words ")
+
+
         }.addOnFailureListener {
             _publicModules.value = listOf()
-            Log.d("Firebase","failed to get all words ")
+
         }
-
-
-
-
 }
 
 fun QuerySnapshot.toListOfWords(moduleRemote: ModuleRemote):List<WordRemote>{
@@ -75,6 +83,8 @@ fun QuerySnapshot.toListOfWords(moduleRemote: ModuleRemote):List<WordRemote>{
 
         val itWord = document["it_word"].toString()
         val enWord = document["en_word"].toString()
+
+
         wordsRemote.add(WordRemote(enWord, itWord, moduleRemote.remoteId, isRemote = true,document.id))
     }
     return wordsRemote

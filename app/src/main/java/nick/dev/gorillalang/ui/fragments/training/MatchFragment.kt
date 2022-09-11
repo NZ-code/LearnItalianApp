@@ -10,93 +10,131 @@ import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.FragmentMatchBinding
 import nick.dev.gorillalang.etraining.MatchQuestion
 import nick.dev.gorillalang.ui.TrainingActivity
-import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
 import nick.dev.gorillalang.ui.viewModels.TrainingViewModel
 
 class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragment_match) {
 
+    // is right or left option currently picked
     private var leftPicked = false
     private var rightPicked = false
+
+    // id of picked options started with 0
     private var leftPickedId = -1
     private var rightPickedId = -1
+
+    // is User ever did mistake in this exercise
     private var wasNoMistake = true
+
+    // viewBinding
     private lateinit var binding: FragmentMatchBinding
+    // viewModel
     lateinit var trainingViewModel: TrainingViewModel
+
+    // left and right  Options
     lateinit var leftTextViews:List<TextView>
     lateinit var rightTextViews: List<TextView>
+
+    // options that already checked
     var leftFinishedIds = mutableListOf<Int>()
     var rightFinishedIds = mutableListOf<Int>()
+
+    // top activity
     lateinit var trainingActivity : TrainingActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        trainingViewModel =(activity as TrainingActivity).trainingViewModel
+        // init activity and viewModel
         trainingActivity = activity as TrainingActivity
+        trainingViewModel =trainingActivity.trainingViewModel
+
+        // view binding
         binding = FragmentMatchBinding.bind(view)
-        if(matchQuestion.isLast){
-            binding.btnSubmit.text = "FINISH"
 
-        }
-        else{
-            binding.btnSubmit.text = "NEXT"
-
-        }
-
-
-        binding.btnSubmit.visibility = View.GONE
+        // setting init button
+        setButtonStart()
 
 
 
+
+        setOptionsStart()
+
+        // set options value and onclick listeners
+        fillOptions()
+    }
+
+    private fun setOptionsStart(){
+        // set options as variables
         leftTextViews = listOf<TextView>(
             binding.tvOptionOneLeft, binding.tvOptionTwoLeft, binding.tvOptionThreeLeft,binding.tvOptionFourLeft
         )
         rightTextViews = listOf<TextView>(
             binding.tvOptionOneRight, binding.tvOptionTwoRight, binding.tvOptionThreeRight,binding.tvOptionFourRight
         )
-        setSetup()
     }
-    fun checkAnswer(){
+    private fun setButtonStart(){
+        // setting button text
+        if(matchQuestion.isLast){
+            binding.btnSubmit.text = "FINISH"
+
+        }
+        else{
+            binding.btnSubmit.text = "NEXT"
+        }
+        binding.btnSubmit.visibility = View.GONE
+    }
+
+    private fun checkAnswer(){
         val isGood = matchQuestion.checkIsRight(leftPickedId,rightPickedId)
 
         if(isGood){
-
-
-            leftTextViews[leftPickedId].optionGoodAnswer()
-            rightTextViews[rightPickedId].optionGoodAnswer()
-            leftFinishedIds.add(leftPickedId)
-            rightFinishedIds.add(rightPickedId)
-            leftPickedId = -1
-            rightPickedId = -1
-            if(leftFinishedIds.size == 4 && rightFinishedIds.size == 4){
-                binding.btnSubmit.visibility = View.VISIBLE
-                binding.btnSubmit.setOnClickListener{
-                    trainingActivity.updateScore(wasNoMistake)
-                    if(wasNoMistake){
-                        trainingViewModel.addGoodAnsweredQuestion(matchQuestion)
-                    }
-                    if(matchQuestion.isLast){
-
-                        trainingActivity.showResults()
-                        Log.d("Bl","show")
-                    }
-                    else{
-
-                        trainingActivity.nextQuestion()
-                        Log.d("Bl","next")
-                    }
-                }
-            }
+            checkAnswerGood()
         }
         else{
-            wasNoMistake = false
-
-            leftTextViews[leftPickedId].optionBadAnswer()
-            rightTextViews[rightPickedId].optionBadAnswer()
-            leftPickedId = -1
-            rightPickedId = -1
+            checkAnswerBad()
         }
 
     }
-    fun onPickRight(view: TextView){
+
+    private fun checkAnswerBad() {
+
+        wasNoMistake = false
+        leftTextViews[leftPickedId].optionBadAnswer()
+        rightTextViews[rightPickedId].optionBadAnswer()
+        leftPickedId = -1
+        rightPickedId = -1
+    }
+
+    private fun checkAnswerGood(){
+        leftTextViews[leftPickedId].optionGoodAnswer()
+        rightTextViews[rightPickedId].optionGoodAnswer()
+        leftFinishedIds.add(leftPickedId)
+        rightFinishedIds.add(rightPickedId)
+        leftPickedId = -1
+        rightPickedId = -1
+        val optionNumber = 4
+        if(leftFinishedIds.size == optionNumber && rightFinishedIds.size == optionNumber){
+            binding.btnSubmit.visibility = View.VISIBLE
+            binding.btnSubmit.setOnClickListener{
+                onLastAnswer()
+            }
+        }
+    }
+    private fun onLastAnswer(){
+        // updating score
+        trainingActivity.updateScore(wasNoMistake)
+        if(wasNoMistake){
+            // adding to update word progress
+            trainingViewModel.addGoodAnsweredQuestion(matchQuestion)
+        }
+        if(matchQuestion.isLast){
+            trainingActivity.finishQuiz()
+        }
+        else{
+            trainingActivity.nextQuestion()
+
+        }
+    }
+
+    private fun onPickRight(view: TextView){
         if(!leftPicked){
             setDefaultViewsLeft()
         }
@@ -110,7 +148,7 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
             checkAnswer()
         }
     }
-    fun onPickLeft(view: TextView){
+    private fun onPickLeft(view: TextView){
         trainingActivity.playWord(view.text.toString())
         if(!rightPicked){
             setDefaultViewsRight()
@@ -124,24 +162,24 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
             checkAnswer()
         }
     }
-    fun TextView.optionDefault(){
+    private fun TextView.optionDefault(){
         setBackgroundColor(Color.WHITE)
         setTextColor(Color.BLACK)
     }
-    fun TextView.optionPicked(){
+    private fun TextView.optionPicked(){
         setBackgroundColor(Color.GRAY)
         setTextColor(Color.WHITE)
     }
-    fun TextView.optionGoodAnswer(){
+    private fun TextView.optionGoodAnswer(){
         setBackgroundColor(Color.GREEN)
         setTextColor(Color.WHITE)
         setOnClickListener(null)
     }
-    fun TextView.optionBadAnswer(){
+    private fun TextView.optionBadAnswer(){
         setBackgroundColor(Color.RED)
         setTextColor(Color.WHITE)
     }
-    fun setDefaultViewsRight(){
+    private fun setDefaultViewsRight(){
         for(i in rightTextViews.indices){
             if(!rightFinishedIds.contains(i)) {
                 rightTextViews[i].apply {
@@ -150,7 +188,7 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
             }
         }
     }
-    fun setDefaultViewsLeft(){
+    private fun setDefaultViewsLeft(){
         for(i in leftTextViews.indices){
             if(!leftFinishedIds.contains(i)){
                 leftTextViews[i].apply {
@@ -160,16 +198,20 @@ class MatchFragment(val matchQuestion: MatchQuestion) :Fragment(R.layout.fragmen
 
         }
     }
-    fun setSetup( ){
+    private fun fillOptions( ){
+        // left options
         for(i in leftTextViews.indices){
             leftTextViews[i].apply {
+                // option value
                 text = matchQuestion.optionsLeft[i]
+                // option clicked
                 setOnClickListener {
                     leftPickedId = i
                     onPickLeft(this)
                 }
             }
         }
+        // right options
         for(i in rightTextViews.indices){
             rightTextViews[i].apply {
                 text = matchQuestion.optionsRight[i]
