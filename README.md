@@ -33,3 +33,13 @@ Although the stage is called writing, all that you need is to click on letters i
 ### Results
 
 When you finish this quiz the result is given. You can see how many questions you answered were good.
+
+
+# UML SCHEMA
+![LanguageApp](https://user-images.githubusercontent.com/59285334/189530764-20fcc64c-70d9-471f-a23d-6a5af1e16fc3.png)
+
+
+# ERD for RoomDatabase
+![image](https://user-images.githubusercontent.com/59285334/189530689-db568cdb-9d6c-407f-92d4-1a89bfc493b6.png)
+
+
