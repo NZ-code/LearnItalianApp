@@ -26,18 +26,20 @@ When you click on the module the quiz will be created. Quiz consists of 3 stages
 ### Picking
 First stage consists of picking exercise. You will see a word in Italian and you need to pick right
 translation from 4 options that will be given to you.
+
 ![image](https://user-images.githubusercontent.com/59285334/189530890-c8ba74b2-4f6c-4c1f-8ddc-cd5dfdb84db3.png)
 
 ### Matching
 Second stage is called matching. You will have 4 words in Italian and 4 words in English.
 You need to match words properly.
+
 ![image](https://user-images.githubusercontent.com/59285334/189530910-e830c0b0-b30d-4b0a-99c4-8473b25fec75.png)
 
 ### Writing
 
 Although the stage is called writing, all that you need is to click on letters in order to create words.
-![image](https://user-images.githubusercontent.com/59285334/189530970-7bfa06cf-3497-4a41-8c31-66670e0f4425.png)
 
+![image](https://user-images.githubusercontent.com/59285334/189530970-7bfa06cf-3497-4a41-8c31-66670e0f4425.png)
 
 ### Results
 
