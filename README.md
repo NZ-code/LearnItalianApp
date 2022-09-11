@@ -2,6 +2,10 @@
 
 The main goal of this app is to help users learn Italian vocabulary in a clear and simple way.
 
+# Technologies
+| Android Studio | MVVM | Firebase | Kotlin | Room | Navigation component|
+| --- | --- | --- | --- | --- | --- |
+
 ## Modules
 
 Modules consist of words. Modules represent several topics such as: Family, Food,Sports, Body, etc.
