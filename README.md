@@ -13,7 +13,7 @@ You can see modules in Vocabulary and practice them in the Learning page.
 The Learning Page gives you an opportunity to pick a module that you like to practise.
 
 
-## Practise
+## Practice
 
 When you click on the module the quiz will be created. Quiz consists of 3 stages.
 
