@@ -7,6 +7,10 @@ The main goal of this app is to help users learn Italian vocabulary in a clear a
 | Android Studio | MVVM | Firebase | Kotlin | Room | Navigation component|
 | --- | --- | --- | --- | --- | --- |
 
+
+## ERD for Room:
+![image](https://user-images.githubusercontent.com/59285334/189530689-db568cdb-9d6c-407f-92d4-1a89bfc493b6.png)
+
 ## Modules:
 
 Modules consist of words. Modules represent several topics such as: Family, Food,Sports, Body, etc.
@@ -29,9 +33,6 @@ When you click on the module the quiz will be created. Quiz consists of 3 stages
 
 
 
-### Picking:
-First stage consists of picking exercise. You will see a word in Italian and you need to pick right
-translation from 4 options that will be given to you.
 
 ![image](https://user-images.githubusercontent.com/59285334/189659120-37bb647c-887c-46f7-8163-dc87ca5e7695.png)
 
@@ -48,18 +49,24 @@ Although the stage is called writing, all that you need is to click on letters i
 
 ![image](https://user-images.githubusercontent.com/59285334/189659442-ed4fd9a3-2c2a-4f6c-a70b-1f356b61919b.png)
 
+
+
+### Picking:
+First stage consists of picking exercise. You will see a word in Italian and you need to pick right
+translation from 4 options that will be given to you.
+
+
 ### Results:
 
 When you finish this quiz the result is given. You can see how many questions you answered were good.
 
-![image](https://user-images.githubusercontent.com/59285334/189530982-2d126ba3-1f25-49ab-9320-eda59b81535d.png)
 
 ### Mistakes:
+
 ![image](https://user-images.githubusercontent.com/59285334/189659541-5503e2c2-30c5-478a-b517-91dd16b42bb1.png)
 
 
 
-## ERD for Room:
-![image](https://user-images.githubusercontent.com/59285334/189530689-db568cdb-9d6c-407f-92d4-1a89bfc493b6.png)
+
 
 
