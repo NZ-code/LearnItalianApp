@@ -26,9 +26,9 @@ class UserModulesFragment:Fragment(R.layout.fragment_user_modules) {
         setupRecyclerView()
 
 
-        languageViewModel.getUserModules().observe(viewLifecycleOwner,{
+        languageViewModel.getUserModules().observe(viewLifecycleOwner) {
             learningModuleAdapter.differ.submitList(it)
-        })
+        }
 
 
     }

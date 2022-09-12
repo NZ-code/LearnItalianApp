@@ -4,15 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
-import nick.dev.gorillalang.models.ModuleRemote
-import nick.dev.gorillalang.models.RemoteModuleProgress
-import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.*
 
 
 @Database(
-    entities =[ModuleRemote::class, WordRemote::class,RemoteWordsProgress::class,RemoteModuleProgress::class],
+    entities =[Module::class, Word::class,RemoteWordsProgress::class,RemoteModuleProgress::class,
+                Mistake::class
+              ],
 
     version = 2
 )

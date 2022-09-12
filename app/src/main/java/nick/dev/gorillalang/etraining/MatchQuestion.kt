@@ -1,10 +1,10 @@
 package nick.dev.gorillalang.etraining
 
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.Word
 
-class MatchQuestion(val wordRemotes:List<WordRemote>):Question(){
+class MatchQuestion(val words:List<Word>):Question(){
 
-    val wordsMatching = wordRemotes.shuffled().takeLast(4)
+    val wordsMatching = words.shuffled().takeLast(4)
     val optionsLeft = wordsMatching.map {
         it.moduleLearnLang
     }

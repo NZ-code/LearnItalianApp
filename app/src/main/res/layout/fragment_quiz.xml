@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play"
+            android:backgroundTint="@android:color/transparent"
             />
         <TextView
             android:id="@+id/tvWord"
@@ -90,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/design_default_color_primary"
+
         android:text="SUBMIT"
         android:textColor="@color/white"
         android:textSize="18sp"

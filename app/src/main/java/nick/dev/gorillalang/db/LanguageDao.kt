@@ -2,31 +2,39 @@ package nick.dev.gorillalang.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import nick.dev.gorillalang.models.ModuleRemote
-import nick.dev.gorillalang.models.RemoteModuleProgress
-import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.*
 import nick.dev.gorillalang.models.relations.ModuleWithWordsRemote
 
 
 @Dao
 interface LanguageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertModule(moduleRemote: ModuleRemote):Long
+    suspend fun upsertModule(module: Module):Long
     @Query("SELECT * FROM modules_remote")
-    fun getAllModules():LiveData<List<ModuleRemote>>
+    fun getAllModules():LiveData<List<Module>>
     @Delete
-    suspend fun deleteModule(moduleRemote: ModuleRemote)
+    suspend fun deleteModule(module: Module)
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertWord(wordRemote: WordRemote):Long
+    suspend fun upsertMistake(mistake: Mistake):Long
+    @Query("SELECT * FROM mistakes")
+    fun getAllMistakes():LiveData<List<Mistake>>
+    @Delete
+    suspend fun deleteMistake(mistake: Mistake)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertWord(word: Word):Long
+
+    @Query("select * from words_remote where remoteId=:id")
+    fun getWordById(id:String):LiveData<Word>
 
     @Transaction
     @Query("select * from modules_remote where remoteId = :moduleId")
     fun getModuleWithWords(moduleId:String):LiveData<List<ModuleWithWordsRemote>>
 
     @Delete
-    suspend fun deleteWord(wordRemote: WordRemote)
+    suspend fun deleteWord(word: Word)
 
 
 

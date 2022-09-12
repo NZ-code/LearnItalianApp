@@ -31,7 +31,8 @@
             android:layout_gravity="right"
             android:contentDescription="Delete button"
             android:minHeight="48dp"
-            android:src="@drawable/ic_trash"
+            android:src="@drawable/ic_delete"
+            android:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
