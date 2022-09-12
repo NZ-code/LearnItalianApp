@@ -8,8 +8,7 @@ The main goal of this app is to help users learn Italian vocabulary in a clear a
 | --- | --- | --- | --- | --- | --- |
 
 
-## ERD for Room:
-![image](https://user-images.githubusercontent.com/59285334/189530689-db568cdb-9d6c-407f-92d4-1a89bfc493b6.png)
+
 
 ## Modules:
 
