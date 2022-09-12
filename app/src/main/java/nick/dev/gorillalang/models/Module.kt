@@ -7,7 +7,7 @@ import java.io.Serializable
 @Entity(
     tableName = "modules_remote"
 )
-data class ModuleRemote(
+data class Module(
     val moduleName:String,
     val isRemote:Boolean = false,
     @PrimaryKey(autoGenerate = false)

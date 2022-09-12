@@ -26,9 +26,9 @@ class PublicModulesFragment:Fragment(R.layout.fragment_public_modules) {
         setupRecyclerView()
         languageViewModel.getPublicModules()
 
-        languageViewModel.publicModules.observe(viewLifecycleOwner,{
+        languageViewModel.publicModules.observe(viewLifecycleOwner) {
             learningModuleAdapter.differ.submitList(it)
-        })
+        }
 
 
     }

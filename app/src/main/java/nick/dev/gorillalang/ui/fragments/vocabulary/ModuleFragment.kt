@@ -12,7 +12,6 @@ import nick.dev.gorillalang.adapters.WordAdapter
 import nick.dev.gorillalang.databinding.FragmentModuleBinding
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
-import java.util.*
 
 class ModuleFragment:Fragment(R.layout.fragment_module) {
     val args: nick.dev.gorillalang.ui.fragments.vocabulary.ModuleFragmentArgs by navArgs()
@@ -25,11 +24,14 @@ class ModuleFragment:Fragment(R.layout.fragment_module) {
         binding = FragmentModuleBinding.bind(view)
 
         setupRecyclerView()
-
+        val mainActivity = (activity as MainActivity)
+        mainActivity.makeBackButtonVisible()
 
         var selectedModule = args.selectedModule
 
-
+        if(selectedModule.isRemote){
+            binding.btnAddWord.visibility = View.GONE
+        }
 
         binding.textView2.text = selectedModule.moduleName.replaceFirstChar {
             it -> it.uppercase()
@@ -61,7 +63,7 @@ class ModuleFragment:Fragment(R.layout.fragment_module) {
         else{
             languageViewModel.getModuleWithWords(selectedModule.remoteId).observe(viewLifecycleOwner,
                 Observer {
-                    wordAdapter.differ.submitList(it[0].wordRemotes)
+                    wordAdapter.differ.submitList(it[0].words)
 
                 })
         }

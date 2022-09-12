@@ -3,47 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Learning"
-        android:textSize="25sp"
+        android:layout_marginLeft="20dp"
+        android:text="Public Modules:"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tlModules"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPublicModules"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Modules" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="User Modules:"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvPublicModules"
+        app:layout_constraintBottom_toTopOf="@id/rvUserModules"
+        tools:layout_editor_absoluteY="395dp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My modules" />
-
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpLearning"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUserModules"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tlModules"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

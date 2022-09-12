@@ -2,72 +2,78 @@ package nick.dev.gorillalang.ui.viewModels
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
-import nick.dev.gorillalang.models.ModuleRemote
-import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.Mistake
+import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.Word
 import nick.dev.gorillalang.repository.LanguageRepository
 
 class LanguageViewModel(app:Application, private val languageRepository:
 LanguageRepository):AndroidViewModel(app)
 {
 
-    private val _publicModules = MutableLiveData<List<ModuleRemote>>()
+    private val _publicModules = MutableLiveData<List<Module>>()
     val publicModules = _publicModules
 
-    private val _allModules = MutableLiveData<List<ModuleRemote>>()
+    private val _allModules = MutableLiveData<List<Module>>()
     val allModules = _allModules
 
-    private val _words = MutableLiveData<List<WordRemote>>()
+    private val _allMistakes = MutableLiveData<List<Mistake>>()
+    val allMistakes = _allMistakes
+
+    private val _words = MutableLiveData<List<Word>>()
     val words = _words
     var wordsReady = false
 
 
 
 
-
-    fun saveModule(moduleRemote: ModuleRemote) = viewModelScope.launch {
-        languageRepository.upsertModule(moduleRemote)
+    fun deleteMistake(mistake: Mistake) = viewModelScope.launch {
+        languageRepository.deleteMistake(mistake)
     }
-    fun deleteModule(moduleRemote: ModuleRemote) = viewModelScope.launch {
-        languageRepository.deleteModule(moduleRemote)
+
+    fun saveModule(module: Module) = viewModelScope.launch {
+        languageRepository.upsertModule(module)
+    }
+    fun deleteModule(module: Module) = viewModelScope.launch {
+        languageRepository.deleteModule(module)
     }
     fun getUserModules() = languageRepository.getUserModules()
+    fun getUserMistakes() = languageRepository.getMistakes()
 
-    fun saveWord(wordRemote: WordRemote) = viewModelScope.launch {
-        languageRepository.upsertWord(wordRemote)
+
+    fun saveWord(word: Word) = viewModelScope.launch {
+        languageRepository.upsertWord(word)
     }
+    fun getWordById(wordId:String) = languageRepository.getWordById(wordId)
 
 
 
     fun getModuleWithWords(moduleId:String) = languageRepository.getModuleWithWords(moduleId)
-    fun deleteWord(wordRemote:WordRemote) = viewModelScope.launch {
-        languageRepository.deleteWord(wordRemote)
+    fun deleteWord(word:Word) = viewModelScope.launch {
+        languageRepository.deleteWord(word)
     }
 
     fun getPublicModules() = languageRepository.getPublicModules()
         .addOnSuccessListener {
             documents->
-                val moduleRemotes = mutableListOf<ModuleRemote>()
+                val modules = mutableListOf<Module>()
             for(document in documents) {
-                moduleRemotes.add(ModuleRemote(document["moduleName"].toString(),true,document.id))
+                modules.add(Module(document["moduleName"].toString(),true,document.id))
 
             }
-            _publicModules.value = moduleRemotes
+            _publicModules.value = modules
             Log.d("Firebase","get all modules ")
         }.addOnFailureListener {
             _publicModules.value = listOf()
             Log.d("Firebase","failed to get all modules ")
         }
-    fun getWordByRemoteModule(moduleRemote: ModuleRemote) = languageRepository.getWordsByRemoteModule(moduleRemote)
+    fun getWordByRemoteModule(module: Module) = languageRepository.getWordsByRemoteModule(module)
         .addOnSuccessListener {
 
-            _words.value = it.toListOfWords(moduleRemote)
+            _words.value = it.toListOfWords(module)
 
 
         }.addOnFailureListener {
@@ -76,16 +82,16 @@ LanguageRepository):AndroidViewModel(app)
         }
 }
 
-fun QuerySnapshot.toListOfWords(moduleRemote: ModuleRemote):List<WordRemote>{
+fun QuerySnapshot.toListOfWords(module: Module):List<Word>{
 
-    val wordsRemote = mutableListOf<WordRemote>()
+    val wordsRemote = mutableListOf<Word>()
     for(document in documents) {
 
         val itWord = document["it_word"].toString()
         val enWord = document["en_word"].toString()
 
 
-        wordsRemote.add(WordRemote(enWord, itWord, moduleRemote.remoteId, isRemote = true,document.id))
+        wordsRemote.add(Word(enWord, itWord, module.remoteId, isRemote = true,document.id))
     }
     return wordsRemote
 }

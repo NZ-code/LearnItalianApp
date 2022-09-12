@@ -67,7 +67,8 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
             }
             else{
                 isChecked = true
-                if(writingQuestion.rightAnswer == blankViews.joinToString("") { it.text }){
+                val userWord=blankViews.joinToString("") { it.text }
+                if(writingQuestion.rightAnswer ==  userWord){
                     binding.tvAnswer.text = "Great"
                     trainingActivity.updateScore(true)
                     trainingViewModel.addGoodAnsweredQuestion(writingQuestion)
@@ -76,6 +77,8 @@ class WritingFragment(val writingQuestion: WritingQuestion):Fragment(R.layout.fr
                     binding.tvAnswer.text = "Wrong!\n Answer:${writingQuestion.rightAnswer}"
                     trainingActivity.playWord(writingQuestion.rightAnswer)
                     trainingActivity.updateScore(false)
+
+                    trainingActivity.addMistake(writingQuestion.questionWord, userWord)
                 }
                 if(writingQuestion.isLast){
                     binding.btnSubmit.text = "FINISH"

@@ -8,7 +8,7 @@ import java.io.Serializable
     tableName = "words_remote"
 )
 
-data class WordRemote  (
+data class Word  (
     val moduleUserLang:String,
     val moduleLearnLang:String,
     var moduleId: String,

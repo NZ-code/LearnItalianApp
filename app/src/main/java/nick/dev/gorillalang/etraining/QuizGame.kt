@@ -1,9 +1,8 @@
 package nick.dev.gorillalang.etraining
 
-import android.util.Log
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.Word
 
-class QuizGame(val wordRemotes:List<WordRemote>){
+class QuizGame(val words:List<Word>){
     var gameQuestionsNum:Int = 0
     private val questions = mutableListOf<Question>()
     val wasRightList= mutableListOf<Question>()
@@ -26,14 +25,14 @@ class QuizGame(val wordRemotes:List<WordRemote>){
         gameQuestionsNum = quizNum+matchNum+writingNum
 
 
-        val quizWords = wordRemotes.sortedByDescending{ wordRemote ->wordRemote.progress }.takeLast(quizNum)
+        val quizWords = words.sortedByDescending{ wordRemote ->wordRemote.progress }.takeLast(quizNum)
 
 
         for(quizWord in quizWords){
-            questions.add(QuizQuestion(quizWord, wordRemotes))
+            questions.add(QuizQuestion(quizWord, words))
         }
         repeat(matchNum){
-            questions.add(MatchQuestion(wordRemotes))
+            questions.add(MatchQuestion(words))
         }
         questions.shuffled()
 
@@ -60,7 +59,7 @@ class QuizGame(val wordRemotes:List<WordRemote>){
     fun nextQuestion(){
         currentQuestionId++
     }
-    fun updateProgress(wordRemote:WordRemote, progress:Int){
+    fun updateProgress(word:Word, progress:Int){
 
     }
 }

@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import nick.dev.gorillalang.databinding.ItemWordHeaderBinding
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.Word
 
 
 class WordAdapter :RecyclerView.Adapter<WordAdapter.WordViewHolder>(){
 
     inner class WordViewHolder(val binding: ItemWordHeaderBinding) : RecyclerView.ViewHolder(binding.root)
-    private val differCallback = object :DiffUtil.ItemCallback<WordRemote>(){
-        override fun areItemsTheSame(oldItem: WordRemote, newItem: WordRemote): Boolean {
+    private val differCallback = object :DiffUtil.ItemCallback<Word>(){
+        override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
             return newItem.remoteId == oldItem.remoteId
         }
 
-        override fun areContentsTheSame(oldItem: WordRemote, newItem: WordRemote): Boolean {
+        override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
             return newItem == oldItem
         }
     }
@@ -65,12 +65,12 @@ class WordAdapter :RecyclerView.Adapter<WordAdapter.WordViewHolder>(){
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-    private var onDeleteClickListener: ((WordRemote)->Unit)?= null
-    fun setOnDeleteClickListener(listener :(WordRemote)->Unit){
+    private var onDeleteClickListener: ((Word)->Unit)?= null
+    fun setOnDeleteClickListener(listener :(Word)->Unit){
         onDeleteClickListener = listener
     }
-    private var onClickListener: ((WordRemote)->Unit)?= null
-    fun setOnClickListener(listener :(WordRemote)->Unit){
+    private var onClickListener: ((Word)->Unit)?= null
+    fun setOnClickListener(listener :(Word)->Unit){
         onClickListener = listener
     }
 

@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.FragmentAddWordBinding
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.Word
 import nick.dev.gorillalang.ui.MainActivity
 import nick.dev.gorillalang.ui.viewModels.LanguageViewModel
 import java.util.*
@@ -21,13 +21,14 @@ class AddWordFragment:Fragment(R.layout.fragment_add_word) {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel =(activity as MainActivity).languageViewModel
         binding = FragmentAddWordBinding.bind(view)
-
+        val mainActivity = (activity as MainActivity)
+        mainActivity.makeBackButtonVisible()
         binding.btnAddWord.setOnClickListener {
             val learnWord = binding.etLearnLangWord.text.toString()
             val userWord = binding.etUserLangWord.text.toString()
             val module = args.selectedModule
             val uniqueID = UUID.randomUUID().toString()
-            languageViewModel.saveWord(WordRemote(userWord, learnWord, module.remoteId,false,uniqueID))
+            languageViewModel.saveWord(Word(userWord, learnWord, module.remoteId,false,uniqueID))
             val action =
                 nick.dev.gorillalang.ui.fragments.vocabulary.AddWordFragmentDirections.actionAddWordFragmentToModuleFragment(
                     module

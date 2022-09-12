@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import nick.dev.gorillalang.databinding.ItemModuleHeaderVocabularyBinding
-import nick.dev.gorillalang.models.ModuleRemote
+import nick.dev.gorillalang.models.Module
 
 class VocabularyModuleAdapter :RecyclerView.Adapter<VocabularyModuleAdapter.ModuleViewHolder>(){
 
     inner class ModuleViewHolder(val binding: ItemModuleHeaderVocabularyBinding) : RecyclerView.ViewHolder(binding.root)
-    private val differCallback = object :DiffUtil.ItemCallback<ModuleRemote>(){
+    private val differCallback = object :DiffUtil.ItemCallback<Module>(){
 
-        override fun areItemsTheSame(oldItem: ModuleRemote, newItem: ModuleRemote): Boolean {
+        override fun areItemsTheSame(oldItem: Module, newItem: Module): Boolean {
             return newItem.remoteId == oldItem.remoteId
         }
 
-        override fun areContentsTheSame(oldItem: ModuleRemote, newItem: ModuleRemote): Boolean {
+        override fun areContentsTheSame(oldItem: Module, newItem: Module): Boolean {
             return newItem == oldItem
         }
 
@@ -58,12 +58,12 @@ class VocabularyModuleAdapter :RecyclerView.Adapter<VocabularyModuleAdapter.Modu
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-    private var onDeleteClickListener: ((ModuleRemote)->Unit)?= null
-    fun setOnDeleteClickListener(listener :(ModuleRemote)->Unit){
+    private var onDeleteClickListener: ((Module)->Unit)?= null
+    fun setOnDeleteClickListener(listener :(Module)->Unit){
         onDeleteClickListener = listener
     }
-    private var onClickListener: ((ModuleRemote)->Unit)?= null
-    fun setOnClickListener(listener :(ModuleRemote)->Unit){
+    private var onClickListener: ((Module)->Unit)?= null
+    fun setOnClickListener(listener :(Module)->Unit){
         onClickListener = listener
     }
 

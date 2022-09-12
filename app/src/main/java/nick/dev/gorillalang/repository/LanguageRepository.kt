@@ -1,10 +1,7 @@
 package nick.dev.gorillalang.repository
 
 import nick.dev.gorillalang.db.LanguageDatabase
-import nick.dev.gorillalang.models.ModuleRemote
-import nick.dev.gorillalang.models.RemoteModuleProgress
-import nick.dev.gorillalang.models.RemoteWordsProgress
-import nick.dev.gorillalang.models.WordRemote
+import nick.dev.gorillalang.models.*
 import nick.dev.gorillalang.remote.RemoteLanguageDatabase
 
 class LanguageRepository(
@@ -14,16 +11,20 @@ class LanguageRepository(
     )
 {
     fun getUserModules() = db.getLanguageDao().getAllModules()
-    suspend fun deleteModule(moduleRemote:ModuleRemote) = db.getLanguageDao().deleteModule(moduleRemote)
-    suspend fun upsertModule(moduleRemote: ModuleRemote)=db.getLanguageDao().upsertModule(moduleRemote)
+    suspend fun deleteModule(module:Module) = db.getLanguageDao().deleteModule(module)
+    suspend fun upsertModule(module: Module)=db.getLanguageDao().upsertModule(module)
 
-    suspend fun upsertWord(wordRemote: WordRemote) = db.getLanguageDao().upsertWord(wordRemote)
+    fun getMistakes() = db.getLanguageDao().getAllMistakes()
+    suspend fun deleteMistake(mistake:Mistake) = db.getLanguageDao().deleteMistake(mistake)
+    suspend fun upsertMistake(mistake: Mistake)=db.getLanguageDao().upsertMistake(mistake)
+
+    suspend fun upsertWord(word: Word) = db.getLanguageDao().upsertWord(word)
 
     fun getModuleWithWords(moduleId:String) = db.getLanguageDao().getModuleWithWords(moduleId)
-    suspend fun deleteWord(wordRemote: WordRemote) = db.getLanguageDao().deleteWord(wordRemote)
+    suspend fun deleteWord(word: Word) = db.getLanguageDao().deleteWord(word)
 
     fun getPublicModules() = rdb.getModules()
-    fun getWordsByRemoteModule(moduleRemote:ModuleRemote) = rdb.getWordsByModule(moduleRemote)
+    fun getWordsByRemoteModule(module:Module) = rdb.getWordsByModule(module)
 
     suspend fun upsertRemoteWordsProgress(progress: RemoteWordsProgress)
     = db.getLanguageDao().upsertRemoteWordsProgress(progress)
@@ -37,4 +38,8 @@ class LanguageRepository(
 
     fun getRemoteModuleProgressById(id:String)
             =db.getLanguageDao().getRemoteModuleProgressById(id)
+
+    fun getWordById(wordId: String) = db.getLanguageDao().getWordById(wordId)
+
+
 }

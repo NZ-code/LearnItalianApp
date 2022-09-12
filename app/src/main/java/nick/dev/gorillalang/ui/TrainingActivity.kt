@@ -10,7 +10,8 @@ import nick.dev.gorillalang.R
 import nick.dev.gorillalang.databinding.ActivityTrainingBinding
 import nick.dev.gorillalang.db.LanguageDatabase
 import nick.dev.gorillalang.etraining.*
-import nick.dev.gorillalang.models.ModuleRemote
+import nick.dev.gorillalang.models.Module
+import nick.dev.gorillalang.models.Word
 import nick.dev.gorillalang.remote.RemoteLanguageDatabase
 import nick.dev.gorillalang.repository.LanguageRepository
 import nick.dev.gorillalang.ui.fragments.training.MatchFragment
@@ -24,19 +25,17 @@ import java.util.*
 class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
     lateinit var trainingViewModel: TrainingViewModel
     lateinit var binding : ActivityTrainingBinding
-    lateinit var  selectedModuleRemote:ModuleRemote
+    lateinit var  selectedModule:Module
     lateinit var quizGame : QuizGame
     private var tts: TextToSpeech? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        selectedModuleRemote = intent.getSerializableExtra("selectedModule") as ModuleRemote
+        selectedModule = intent.getSerializableExtra("selectedModule") as Module
         val languageRepository = LanguageRepository(LanguageDatabase(this),
             RemoteLanguageDatabase()
         )
 
 
-
-
-        val trainingViewModelProviderFactory = TrainingViewModelProviderFactory(application, languageRepository,selectedModuleRemote)
+        val trainingViewModelProviderFactory = TrainingViewModelProviderFactory(application, languageRepository,selectedModule)
         trainingViewModel = ViewModelProvider(this, trainingViewModelProviderFactory)[TrainingViewModel::class.java]
         super.onCreate(savedInstanceState)
         binding =ActivityTrainingBinding.inflate(layoutInflater)
@@ -52,9 +51,9 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
 
     private fun getWords(){
 
-        if(selectedModuleRemote.isRemote){
-            trainingViewModel.getWordByRemoteModule(selectedModuleRemote).addOnSuccessListener {
-                val wordsFromModule = it.toListOfWords(selectedModuleRemote)
+        if(selectedModule.isRemote){
+            trainingViewModel.getWordByRemoteModule(selectedModule).addOnSuccessListener {
+                val wordsFromModule = it.toListOfWords(selectedModule)
                 if(wordsFromModule.size >= Constants.MIN_WORDS_TO_LEARN ){
                     quizGame = trainingViewModel.getNewQuizGame(wordsFromModule)
                     goToFragment(quizGame.getCurrentQuestion())
@@ -67,8 +66,8 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
             }
         }
         else{
-            trainingViewModel.getWordByLocalModule(selectedModuleRemote).observe(this){
-                val words = it[0].wordRemotes
+            trainingViewModel.getWordByLocalModule(selectedModule).observe(this){
+                val words = it[0].words
                 if( words.size >= Constants.MIN_WORDS_TO_LEARN ){
                     quizGame = trainingViewModel.getNewQuizGame( words)
                     goToFragment(quizGame.getCurrentQuestion())
@@ -113,6 +112,10 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
         quizGame.nextQuestion()
         goToFragment(quizGame.getCurrentQuestion())
     }
+    fun addMistake(word:Word, mistake: String){
+        trainingViewModel.addMistake(word,mistake)
+    }
+
     fun updateScore(wasRight:Boolean){
         quizGame.changeScore(wasRight)
     }

@@ -38,7 +38,7 @@ class VocabularyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel =(activity as MainActivity).languageViewModel
         binding = FragmentVocabularyBinding.bind(view)
-
+        val mainActivity = activity as MainActivity
         tabLayout = binding.tlModules
         viewPager2 = binding.vpLearning
 
@@ -50,6 +50,9 @@ class VocabularyFragment : Fragment() {
             else->{throw Resources.NotFoundException("Cannot find tab with index $index")}
         }
         }.attach()
+
+
+
     }
 
 
