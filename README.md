@@ -25,7 +25,7 @@ You can see modules in Vocabulary and practice them in the Learning page.
 
 The Learning Page gives you an opportunity to pick a module that you like to practise.
 
-![image](https://user-images.githubusercontent.com/59285334/189658820-8cfad64d-ed2c-40fd-bf9b-99ec501c71a6.png)
+![image](https://user-images.githubusercontent.com/59285334/189660446-f9745a77-1b98-4045-bf8c-165449bc1840.png)
 
 ## Practice:
 
