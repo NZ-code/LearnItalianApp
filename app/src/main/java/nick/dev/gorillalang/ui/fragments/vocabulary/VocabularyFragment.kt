@@ -42,6 +42,7 @@ class VocabularyFragment : Fragment() {
         tabLayout = binding.tlModules
         viewPager2 = binding.vpLearning
 
+
         viewPager2.adapter = VocabularyPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager2){
                 tab,index->tab.text = when(index){
