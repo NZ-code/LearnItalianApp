@@ -25,7 +25,7 @@ class QuizGame(val words:List<Word>){
         gameQuestionsNum = quizNum+matchNum+writingNum
 
 
-        val quizWords = words.sortedByDescending{ wordRemote ->wordRemote.progress }.takeLast(quizNum)
+        val quizWords = words.shuffled().takeLast(quizNum)
 
 
         for(quizWord in quizWords){
@@ -35,7 +35,7 @@ class QuizGame(val words:List<Word>){
             questions.add(MatchQuestion(words))
         }
         questions.shuffled()
-
+        quizWords.shuffled()
         val writingWords = quizWords.takeLast(writingNum)
 
         for(word in writingWords){
