@@ -45,7 +45,7 @@ LanguageRepository,val module:Module):AndroidViewModel(app)
         for (mistake in mistakes){
             for(userMistake in mistake.value){
                 val realWord = mistake.key
-                saveWordToLearned(realWord)
+
                 val uniqueID = UUID.randomUUID().toString()
                 saveMistake(Mistake(uniqueID,userMistake,realWord.remoteId))
             }
@@ -118,10 +118,6 @@ LanguageRepository,val module:Module):AndroidViewModel(app)
 
     fun getNewQuizGame(words:List<Word>) = QuizGame(words)
 
-    fun saveWordToLearned(word: Word) = viewModelScope.launch {
-        val savedWord = word.copy()
-        savedWord.moduleId = LEARNED_WORDS_MODULE_ID
-        languageRepository.upsertWord(savedWord)
-    }
+
 }
 
