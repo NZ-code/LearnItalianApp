@@ -22,7 +22,7 @@ class AddModuleFragment:Fragment(R.layout.fragment_add_module) {
         mainActivity.makeBackButtonVisible()
         binding.btnAddModule.setOnClickListener {
             val uniqueID = UUID.randomUUID().toString()
-            languageViewModel.saveModule(Module(binding.etModuleName.text.toString(),false,uniqueID))
+            languageViewModel.saveModule(Module(binding.etModuleName.text.toString().trim(),false,uniqueID))
 
             Navigation.findNavController(view).apply {
 

@@ -46,8 +46,8 @@ class AddWordFragment:Fragment(R.layout.fragment_add_word) {
             editText.setSelection(editText.length())
         }
         binding.btnAddWord.setOnClickListener {
-            val learnWord = binding.etLearnLangWord.text.toString()
-            val userWord = binding.etUserLangWord.text.toString()
+            val learnWord = binding.etLearnLangWord.text.toString().trim()
+            val userWord = binding.etUserLangWord.text.toString().trim()
             val module = args.selectedModule
             val uniqueID = UUID.randomUUID().toString()
             languageViewModel.saveWord(Word(userWord, learnWord, module.remoteId,false,uniqueID))
