@@ -87,8 +87,8 @@ fun QuerySnapshot.toListOfWords(module: Module):List<Word>{
     val wordsRemote = mutableListOf<Word>()
     for(document in documents) {
 
-        val itWord = document["it_word"].toString()
-        val enWord = document["en_word"].toString()
+        val itWord = document["learn_lang"].toString()
+        val enWord = document["user_lang"].toString()
 
 
         wordsRemote.add(Word(enWord, itWord, module.remoteId, isRemote = true,document.id))

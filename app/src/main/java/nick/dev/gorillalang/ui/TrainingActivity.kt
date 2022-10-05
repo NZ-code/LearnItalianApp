@@ -133,7 +133,7 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
-            val result = tts!!.setLanguage(Locale.ITALIAN)
+            val result = tts!!.setLanguage(Locale("pl"))
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS","The Language specified is not supported!")
