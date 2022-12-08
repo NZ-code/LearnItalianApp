@@ -29,8 +29,7 @@ class LanguageRepository(
     suspend fun upsertRemoteWordsProgress(progress: RemoteWordsProgress)
     = db.getLanguageDao().upsertRemoteWordsProgress(progress)
 
-    fun getRemoteProgressById(id:String)
-    =db.getLanguageDao().getRemoteWordProgress(id)
+    fun getWordProgress(id:String)  = db.getLanguageDao().getRemoteWordProgress(id)
 
 
     suspend fun upsertRemoteModuleProgress(progress: RemoteModuleProgress)

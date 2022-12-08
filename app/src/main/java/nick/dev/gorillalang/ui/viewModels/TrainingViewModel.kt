@@ -25,6 +25,9 @@ LanguageRepository,val module:Module):AndroidViewModel(app)
     val words = _words
     fun getModuleWithWords(moduleId:String) = languageRepository.getModuleWithWords(moduleId)
 
+    fun getWordProgress(id:String) =
+
+        languageRepository.getWordProgress(id)
 
     fun  addMistake(word:Word, mistake: String){
         if(mistakes.isEmpty()){
@@ -98,16 +101,7 @@ LanguageRepository,val module:Module):AndroidViewModel(app)
         .addOnSuccessListener {
             _words.value = it.toListOfWords(module)
 
-            // update progress
-            for (word in _words.value!!){
-                val progress = languageRepository.getRemoteProgressById(word.remoteId)
-                progress.observeForever{
-                        progressList->
-                    if(progressList.isNotEmpty()){
-                        word.progress = progressList[0].level
-                    }
-                }
-            }
+
 
         }.addOnFailureListener {
             _words.value = listOf()

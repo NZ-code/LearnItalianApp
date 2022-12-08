@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Match"
-
+        android:hyphenationFrequency="none"
         android:textAlignment="center"
         android:textSize="25sp" />
     <LinearLayout
@@ -149,7 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
+        
         android:background="@color/design_default_color_primary"
         android:text="SUBMIT"
         android:textColor="@color/white"
