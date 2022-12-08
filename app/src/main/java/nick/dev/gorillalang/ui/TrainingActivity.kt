@@ -48,12 +48,17 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
 
 
     }
-
     private fun getWords(){
 
         if(selectedModule.isRemote){
             trainingViewModel.getWordByRemoteModule(selectedModule).addOnSuccessListener {
                 val wordsFromModule = it.toListOfWords(selectedModule)
+                wordsFromModule.forEach {
+                        word -> getProgress(word)
+                }
+
+
+
                 if(wordsFromModule.size >= Constants.MIN_WORDS_TO_LEARN ){
                     quizGame = trainingViewModel.getNewQuizGame(wordsFromModule)
                     goToFragment(quizGame.getCurrentQuestion())
@@ -68,6 +73,9 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
         else{
             trainingViewModel.getWordByLocalModule(selectedModule).observe(this){
                 val words = it[0].words
+                words.forEach {
+                    word -> getProgress(word)
+                }
                 if( words.size >= Constants.MIN_WORDS_TO_LEARN ){
                     quizGame = trainingViewModel.getNewQuizGame( words)
                     goToFragment(quizGame.getCurrentQuestion())
@@ -81,6 +89,13 @@ class TrainingActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
 
 
     }
+
+    private fun getProgress(word: Word) {
+
+        //val progress = trainingViewModel.getWordProgress(word.remoteId)[0].level
+        //word.progress = progress
+    }
+
     fun goToFragment(question:Question){
 
         when(question.type){
